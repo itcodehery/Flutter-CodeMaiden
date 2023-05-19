@@ -1,11 +1,22 @@
 import 'package:flutter/material.dart';
-
+//const is a constructor, not a constant
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  MyApp({super.key});
+  
+  final List<String> textItems = [
+    'Mots',
+    'SushK',
+    'Vignesh',
+    'Sneha',
+    'Anjo',
+    'Joshwin',
+    'Ranak'
+    // Add more items as needed
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -13,13 +24,19 @@ class MyApp extends StatelessWidget {
       title: 'My Flutter App',
       home: Scaffold(
         appBar: AppBar(
+          primary: false,
           backgroundColor: Colors.black,
-          title: const Text('Welcome to Flutter'),
+          title: const Text('Dynamic Lists'),
         ),
-        body: const Center(
-          child: Text('Hello, Flutter!'),
-        ),
-      ),
-    );
+        body: ListView.builder(
+          itemCount: textItems.length,
+          itemBuilder: (BuildContext context, int index ) {
+            return ListTile(
+              title: Text(textItems[index]),
+            );
+          }
+          )
+          )
+        );
   }
 }
