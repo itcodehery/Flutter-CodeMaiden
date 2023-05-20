@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-//const is a constructor, not a constant
+//const is a constant
 void main() {
   runApp(MyApp());
 }
