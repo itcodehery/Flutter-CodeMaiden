@@ -12,7 +12,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   IconData iconstate = Icons.add;
-  late String titleText, subtitleText;
+  String titleText = '', subtitleText = '';
   
   Card createCard(String titletext, String subtitletext){
     return Card(
