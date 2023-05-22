@@ -23,7 +23,9 @@ class _MyAppState extends State<MyApp> {
       floatingActionButton: FloatingActionButton(
         child: Icon(iconstate),
         onPressed: () {
+        setState(() {
           iconstate == Icons.add ? iconstate = Icons.check : iconstate = Icons.add;
+         });
         },
       ),
       bottomNavigationBar: BottomNavigationBar(
