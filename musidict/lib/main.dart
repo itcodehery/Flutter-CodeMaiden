@@ -41,9 +41,9 @@ class _MyAppState extends State<MyApp> {
   
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          setState(() {
-            iconstate == Icons.add ? iconstate = Icons.check : iconstate = Icons.add;
-          });
+        setState(() {
+          iconstate == Icons.add ? iconstate = Icons.check : iconstate = Icons.add;
+         });
         },
         backgroundColor: Colors.orange,
         focusColor: Colors.orange,
