@@ -1,16 +1,10 @@
-# musidict
+##musidict
+#The Music Dictionary
 
-A new Flutter project.
+The basic idea is to create an app to display all the basic music terms needed in a Trinity College Music Theory exam.
 
-## Getting Started
+Consists of 
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- a list of various terminologies
+- A search bar to search for a specific term
+- Filters to filter just the terms needed for a specific exam
