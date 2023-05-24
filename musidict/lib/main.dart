@@ -41,7 +41,7 @@ class _MyAppState extends State<MyApp> {
       appBar: AppBar(
         backgroundColor: Colors.blueGrey,
         elevation: 0,
-        title: const Text('Musidict'),
+        title: const Text('Musidict: The Music Dictionary'),
       ),
 
       // For the future baby
