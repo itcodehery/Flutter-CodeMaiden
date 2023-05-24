@@ -16,13 +16,18 @@ class _MyAppState extends State<MyApp> {
   
   Card createCard(String titletext, String subtitletext){
     return Card(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(2),
+      ),
         elevation: 2,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            Text(titletext),
-            Text(subtitletext)
+            ListTile(
+              title: Text(titletext),
+              subtitle: Text(subtitletext),
+            )
           ],
         )
       );
