@@ -18,11 +18,11 @@ class _MyAppState extends State<MyApp> {
     return Card(
         elevation: 2,
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            Card(
-              child: Row(children: [Text(titleText), Text(subtitleText)],
-              )
-            ),
+            Text(titletext),
+            Text(subtitletext)
           ],
         )
       );
@@ -71,13 +71,13 @@ class _MyAppState extends State<MyApp> {
           label: 'Settings'),
   
       ]),
-      body: Row(
-        children: [
-          createCard('Allegro', 'Play fast'),
-          createCard('Allegretto','Play fast but not as fast as Allegro'),
-          createCard('Forte','Play loudly'),
+      body: ListView(
+        children: <Widget>[
+            createCard("Allegro", "Play a little faster"),
+            createCard("Allegretto", "Play fast but not as fast as Allegro"),
+            createCard("Una Corda", "One String: Play with the left pedal down"),
         ],
-      ) 
+      )
     )
     
     );
