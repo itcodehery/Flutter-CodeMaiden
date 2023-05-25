@@ -14,6 +14,16 @@ class _MyAppState extends State<MyApp> {
   IconData iconstate = Icons.add;
   String titleText = '', subtitleText = '';
   
+  Map<String, String> dictionary = {
+    "Allegro":"Play at a fast pace",
+    "Allegretto":"Play fast but not as fast as Allegro",
+    "Pianissimo":"very soft",
+    "Piano":"soft",
+    "Mezzo Piano":"medium soft",
+    "Mezzo Forte":"medium loud",
+    "Forte":"to be played loudly"
+  };
+  
   Card createCard(String titletext, String subtitletext){
     return Card(
       shape: RoundedRectangleBorder(
@@ -27,6 +37,7 @@ class _MyAppState extends State<MyApp> {
             ListTile(
               title: Text(titletext),
               subtitle: Text(subtitletext),
+              trailing: const Icon(Icons.bookmark_add_outlined,),
             )
           ],
         )
@@ -89,12 +100,28 @@ class _MyAppState extends State<MyApp> {
             createCard("Legato","Play smoothly"),
             createCard("Staccato","Play the marked notes detached, short and crisp"),
             createCard("Slur","Play the marked notes smoothly"),
-            const Text("----------------------------", textAlign: TextAlign.center),
+            
+            const Divider(height: 12, thickness: 2,),
             createCard("Tenuto","ten.: slightly lengthen and sustain the note"),
             createCard("Cantabile", "with a singing tone"),
             createCard("Espressivo", "expressively"),
             createCard("Gracioso","gracefully"),
-            createCard("Molto","very (molto expressivo means 'very expressively')"),
+            createCard("Molto","very"),
+            
+            // ListView.builder(
+            //   itemCount: dictionary.length,
+            //   itemBuilder: (context, index) {
+            //   Iterable<MapEntry<String, String>> dict = dictionary.entries.;
+            //   return createCard();
+            //   },
+            // )
+            
+            // dictionary.forEach((key, value) {
+            //   String a = key;
+            //   String b = value;
+            //   createCard(a, b);
+            // })
+          
         ],
       )
     )
