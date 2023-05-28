@@ -37,11 +37,15 @@ class _MyAppState extends State<MyApp> {
             ListTile(
               title: Text(titletext),
               subtitle: Text(subtitletext),
-              trailing: const Icon(Icons.bookmark_add_outlined,),
+              trailing:const Icon(Icons.bookmark_add_outlined),               
             )
           ],
         )
       );
+  }
+
+  Card createCardfromMap(Map<String,String> mapAbsolute){
+    return const Card();
   }
 
   @override
@@ -85,6 +89,7 @@ class _MyAppState extends State<MyApp> {
       ]),
       body: ListView(
         children: <Widget>[
+            const Text("Grade 1", textScaleFactor: 2,),
             createCard("Pianissimo", "pp: very soft"),
             createCard("Piano", "p: soft"),
             createCard("Mezzo Piano", "mp: medium soft (mezzo means half)"),
@@ -99,9 +104,9 @@ class _MyAppState extends State<MyApp> {
             createCard("Accent","Play with an accent"),
             createCard("Legato","Play smoothly"),
             createCard("Staccato","Play the marked notes detached, short and crisp"),
-            createCard("Slur","Play the marked notes smoothly"),
-            
+            createCard("Slur","Play the marked notes smoothly"), 
             const Divider(height: 12, thickness: 2,),
+            const Text("Grade 2", textScaleFactor: 2,),            
             createCard("Tenuto","ten.: slightly lengthen and sustain the note"),
             createCard("Cantabile", "with a singing tone"),
             createCard("Espressivo", "expressively"),
