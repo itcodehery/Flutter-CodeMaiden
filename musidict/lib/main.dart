@@ -88,7 +88,8 @@ class _MyAppState extends State<MyApp> {
               children: <Widget>[
                 const Text(
                   "Grade 1",
-                  textScaleFactor: 2,
+                  textScaleFactor: 1,
+                  textAlign: TextAlign.center,
                 ),
                 createCard("Pianissimo", "pp: very soft"),
                 createCard("Piano", "p: soft"),
@@ -112,7 +113,8 @@ class _MyAppState extends State<MyApp> {
                 ),
                 const Text(
                   "Grade 2",
-                  textScaleFactor: 2,
+                  textScaleFactor: 1,
+                  textAlign: TextAlign.left,
                 ),
                 createCard(
                     "Tenuto", "ten.: slightly lengthen and sustain the note"),
@@ -120,7 +122,35 @@ class _MyAppState extends State<MyApp> {
                 createCard("Espressivo", "expressively"),
                 createCard("Gracioso", "gracefully"),
                 createCard("Molto", "very"),
-
+                createCard("8va", "Play music an octave higher"),
+                createCard("8vb", "Play music an octave lower"),
+                createCard("Adagio", "slow"),
+                createCard("Allegretto", "quite fast but slower than Allegro"),
+                createCard("Vivace", "fast and lively"),
+                const Divider(
+                  height: 12,
+                  thickness: 2,
+                ),
+                const Text(
+                  "Grade 3",
+                  textScaleFactor: 1,
+                  textAlign: TextAlign.left,
+                ),
+                createCard("Marcato", "marked/accented"),
+                createCard(
+                    "Semi-Staccato", "halfway between legato and staccato"),
+                createCard("Dolce", "sweetly"),
+                createCard("Leggiero", "Lightly"),
+                createCard("Marziale", "march-like"),
+                createCard("Tranquillo", "calmly"),
+                createCard("Vivo", "Lively"),
+                createCard("Al, Alla", "like"),
+                createCard("A tempo",
+                    "in time or at the spped that the piece started"),
+                createCard("Con", "with"),
+                createCard("da capo al Fine",
+                    "go back to the beginning and play until it says Fine"),
+                createCard("Mosso, Moto", "movement"),
                 // ListView.builder(
                 //   itemCount: dictionary.length,
                 //   itemBuilder: (context, index) {
