@@ -4,10 +4,10 @@ class RangeSelectorPage extends StatefulWidget {
   const RangeSelectorPage({Key? key}) : super(key: key);
 
   @override
-  _RangeSelectorPageState createState() => _RangeSelectorPageState();
+  RangeSelectorPageState createState() => RangeSelectorPageState();
 }
 
-class _RangeSelectorPageState extends State<RangeSelectorPage> {
+class RangeSelectorPageState extends State<RangeSelectorPage> {
   int _min = 0;
   int _max = 0;
 
