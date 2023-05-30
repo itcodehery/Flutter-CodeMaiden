@@ -1,5 +1,3 @@
-import 'dart:js_interop';
-
 import 'package:flutter/material.dart';
 
 class RangeSelectorPage extends StatefulWidget {
@@ -28,7 +26,7 @@ class _RangeSelectorPageState extends State<RangeSelectorPage> {
                 labelText: 'Minimum',
                 intValueSetter: (value) => _min = value,
               ),
-              SizedBox(height: 12),
+              const SizedBox(height: 12),
               RangeSelectorTextFormField(
                 labelText: 'Maximum',
                 intValueSetter: (value) => _max = value,
@@ -51,7 +49,8 @@ class RangeSelectorTextFormField extends StatelessWidget {
   }) : super(key: key);
 
   final String labelText;
-  void Function(int value) intValueSetter;
+  final void Function(int value) intValueSetter;
+
   @override
   Widget build(BuildContext context) {
     return TextFormField(
