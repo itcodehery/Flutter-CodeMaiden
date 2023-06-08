@@ -1,5 +1,4 @@
 import 'dart:math';
-
 import 'package:flutter/material.dart';
 
 //try keeping the code clean this time.
@@ -48,8 +47,10 @@ class CalculatorScreenState extends State<CalculatorScreen> {
         _num1 = double.parse(_output);
         _operator = buttonText;
         _output = '0';
-      } else if (buttonText == '.') {
-        _output += buttonText;
+      } else if (_output.length < 15) {
+        if (buttonText == '.') {
+          _output += buttonText;
+        }
       } else if (buttonText == '=') {
         _num2 = double.parse(_output);
         switch (_operator) {
@@ -85,7 +86,9 @@ class CalculatorScreenState extends State<CalculatorScreen> {
         if (_output == '0') {
           _output = buttonText;
         } else {
-          _output += buttonText;
+          if (_output.length < 15) {
+            _output += buttonText;
+          }
         }
       }
     });
@@ -141,7 +144,7 @@ class CalculatorScreenState extends State<CalculatorScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Calculator')),
+      appBar: AppBar(title: const Text('Two Operand Calculator')),
       body: Column(
         children: [
           Container(
