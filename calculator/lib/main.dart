@@ -44,19 +44,25 @@ class CalculatorScreenState extends State<CalculatorScreen> {
         _num1 = double.parse(_output);
         _operator = buttonText;
         _output = '0';
+      } else if (buttonText == '.') {
+        _output += buttonText;
       } else if (buttonText == '=') {
         _num2 = double.parse(_output);
-        if (_operator == '+') {
-          _result = (_num1 + _num2).toString();
-        }
-        if (_operator == '-') {
-          _result = (_num1 - _num2).toString();
-        }
-        if (_operator == '*') {
-          _result = (_num1 * _num2).toString();
-        }
-        if (_operator == '/') {
-          _result = (_num1 / _num2).toString();
+        switch (_operator) {
+          case '+':
+            _result = (_num1 + _num2).toString();
+            break;
+
+          case '-':
+            _result = (_num1 - _num2).toString();
+            break;
+
+          case '*':
+            _result = (_num1 * _num2).toString();
+            break;
+
+          case '/':
+            _result = (_num1 / _num2).toString();
         }
         _num1 = 0.0;
         _num2 = 0.0;
@@ -74,17 +80,19 @@ class CalculatorScreenState extends State<CalculatorScreen> {
 
   Widget _buildButton(
       String buttonText, Color buttonColor, double buttonHeight) {
-    return ElevatedButton(
-      onPressed: () => _buttonPressed(buttonText),
-      child: Text(
-        buttonText,
-        style: const TextStyle(
-          fontSize: 30.0,
-          fontWeight: FontWeight.normal,
-          color: Colors.white,
+    return TextButton(
+        onPressed: () => _buttonPressed(buttonText),
+        style: ButtonStyle(
+          backgroundColor: MaterialStateProperty.all(buttonColor),
         ),
-      ),
-    );
+        child: Text(
+          buttonText,
+          style: const TextStyle(
+            fontSize: 30.0,
+            fontWeight: FontWeight.normal,
+            color: Colors.white,
+          ),
+        ));
   }
 
   @override
@@ -104,7 +112,7 @@ class CalculatorScreenState extends State<CalculatorScreen> {
             ),
           ),
           const Expanded(
-            child: Divider(),
+            child: Divider(), //Expands the divider when numbers are big
           ),
           Column(
             children: [
@@ -114,6 +122,7 @@ class CalculatorScreenState extends State<CalculatorScreen> {
                   _buildButton('8', Colors.grey, 1),
                   _buildButton('9', Colors.grey, 1),
                   _buildButton('/', Colors.orange, 1),
+                  _buildButton('.', Colors.grey, 1),
                 ],
               ),
               Row(
