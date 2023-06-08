@@ -86,9 +86,7 @@ class CalculatorScreenState extends State<CalculatorScreen> {
         if (_output == '0') {
           _output = buttonText;
         } else {
-          if (_output.length < 15) {
-            _output += buttonText;
-          }
+          _output += buttonText;
         }
       }
     });
