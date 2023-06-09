@@ -109,7 +109,7 @@ class CalculatorScreenState extends State<CalculatorScreen> {
             fontFamily: 'SFProDisplay',
             fontSize: 30.0,
             fontWeight: FontWeight.normal,
-            color: Colors.white,
+            color: Colors.black,
           ),
         ));
   }
@@ -134,7 +134,7 @@ class CalculatorScreenState extends State<CalculatorScreen> {
               fontFamily: 'SFProDisplay',
               fontSize: 30.0,
               fontWeight: FontWeight.normal,
-              color: Colors.white,
+              color: Colors.black,
             ),
           )),
     );
