@@ -3,7 +3,9 @@ import 'package:get/get.dart';
 import 'package:material3_layout/material3_layout.dart';
 
 // sample to use pub.dev
-void main() => const runApp(Jetflix());
+void main() {
+  runApp(const Jetflix());
+}
 
 class Jetflix extends StatefulWidget {
   const Jetflix({Key? key}) : super(key: key);
