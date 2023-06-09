@@ -1,7 +1,4 @@
-<<<<<<< HEAD
 import 'dart:math';
-=======
->>>>>>> parent of 69e08b5 (Cleaned up the UI. Calculator is done.)
 import 'package:flutter/material.dart';
 
 void main() => runApp(const CalculatorApp());
@@ -13,7 +10,8 @@ class CalculatorApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Calculator',
-      theme: ThemeData(primarySwatch: Colors.blue),
+      color: const Color.fromRGBO(244, 233, 205, 100),
+      theme: ThemeData(primarySwatch: Colors.orange),
       home: const CalculatorScreen(),
     );
   }
@@ -44,14 +42,14 @@ class CalculatorScreenState extends State<CalculatorScreen> {
       } else if (buttonText == '+' ||
           buttonText == '-' ||
           buttonText == '*' ||
-          buttonText == '/') {
+          buttonText == '/' ||
+          buttonText == 'M' ||
+          buttonText == '^') {
         _num1 = double.parse(_output);
         _operator = buttonText;
         _output = '0';
-      } else if (_output.length < 15) {
-        if (buttonText == '.') {
-          _output += buttonText;
-        }
+      } else if (buttonText == '.') {
+        _output += buttonText;
       } else if (buttonText == '=') {
         _num2 = double.parse(_output);
         switch (_operator) {
@@ -69,6 +67,15 @@ class CalculatorScreenState extends State<CalculatorScreen> {
 
           case '/':
             _result = (_num1 / _num2).toString();
+            break;
+
+          case 'M':
+            _result = (_num1 % _num2).toString();
+            break;
+
+          case '^':
+            _result = pow(_num1, _num2).toString();
+            break;
         }
         _num1 = 0.0;
         _num2 = 0.0;
@@ -90,10 +97,16 @@ class CalculatorScreenState extends State<CalculatorScreen> {
         onPressed: () => _buttonPressed(buttonText),
         style: ButtonStyle(
           backgroundColor: MaterialStateProperty.all(buttonColor),
+          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+            RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8.0),
+                side: const BorderSide(color: Colors.transparent)),
+          ),
         ),
         child: Text(
           buttonText,
           style: const TextStyle(
+            fontFamily: 'SFProDisplay',
             fontSize: 30.0,
             fontWeight: FontWeight.normal,
             color: Colors.white,
@@ -101,10 +114,43 @@ class CalculatorScreenState extends State<CalculatorScreen> {
         ));
   }
 
+  Widget _buildEqualsButton(
+      String buttonText, Color buttonColor, double buttonHeight) {
+    return SizedBox(
+      width: 130,
+      child: TextButton(
+          onPressed: () => _buttonPressed(buttonText),
+          style: ButtonStyle(
+            backgroundColor: MaterialStateProperty.all(buttonColor),
+            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+              RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                  side: const BorderSide(color: Colors.transparent)),
+            ),
+          ),
+          child: Text(
+            buttonText,
+            style: const TextStyle(
+              fontFamily: 'SFProDisplay',
+              fontSize: 30.0,
+              fontWeight: FontWeight.normal,
+              color: Colors.white,
+            ),
+          )),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Two Operand Calculator')),
+      appBar: AppBar(
+        title: const Text('Two Operand Calculator'),
+        titleTextStyle: const TextStyle(
+          fontFamily: 'SFProDisplay',
+          fontSize: 20.0,
+          color: Colors.black,
+        ),
+      ),
       body: Column(
         children: [
           Container(
@@ -113,50 +159,114 @@ class CalculatorScreenState extends State<CalculatorScreen> {
                 const EdgeInsets.symmetric(horizontal: 12.0, vertical: 24.0),
             child: Text(
               _output,
-              style:
-                  const TextStyle(fontSize: 48.0, fontWeight: FontWeight.bold),
+              style: const TextStyle(
+                  fontFamily: 'SFProDisplay',
+                  fontSize: 48.0,
+                  fontWeight: FontWeight.bold),
             ),
           ),
           const Expanded(
             child: Divider(), //Expands the divider when numbers are big
           ),
           Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  _buildButton('7', Colors.grey, 1),
-                  _buildButton('8', Colors.grey, 1),
-                  _buildButton('9', Colors.grey, 1),
+                  _buildButton('7', Colors.pinkAccent, 1),
+                  const SizedBox(
+                    width: 6,
+                  ),
+                  _buildButton('8', Colors.pinkAccent, 1),
+                  const SizedBox(
+                    width: 6,
+                  ),
+                  _buildButton('9', Colors.pinkAccent, 1),
+                  const SizedBox(
+                    width: 6,
+                  ),
                   _buildButton('/', Colors.orange, 1),
-                  _buildButton('.', Colors.grey, 1),
+                  const SizedBox(
+                    width: 6,
+                  ),
+                  _buildButton('.', Colors.orange, 1),
                 ],
               ),
+              const SizedBox(
+                height: 6,
+              ),
               Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  _buildButton('4', Colors.grey, 1),
-                  _buildButton('5', Colors.grey, 1),
-                  _buildButton('6', Colors.grey, 1),
+                  _buildButton('4', Colors.pinkAccent, 1),
+                  const SizedBox(
+                    width: 6,
+                  ),
+                  _buildButton('5', Colors.pinkAccent, 1),
+                  const SizedBox(
+                    width: 6,
+                  ),
+                  _buildButton('6', Colors.pinkAccent, 1),
+                  const SizedBox(
+                    width: 6,
+                  ),
                   _buildButton('*', Colors.orange, 1),
+                  const SizedBox(
+                    width: 6,
+                  ),
+                  _buildButton('M', Colors.orange, 1),
                 ],
               ),
+              const SizedBox(
+                height: 6,
+              ),
               Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  _buildButton('1', Colors.grey, 1),
-                  _buildButton('2', Colors.grey, 1),
-                  _buildButton('3', Colors.grey, 1),
+                  _buildButton('1', Colors.pinkAccent, 1),
+                  const SizedBox(
+                    width: 6,
+                  ),
+                  _buildButton('2', Colors.pinkAccent, 1),
+                  const SizedBox(
+                    width: 6,
+                  ),
+                  _buildButton('3', Colors.pinkAccent, 1),
+                  const SizedBox(
+                    width: 6,
+                  ),
                   _buildButton('-', Colors.orange, 1),
+                  const SizedBox(
+                    width: 6,
+                  ),
+                  _buildButton('^', Colors.orange, 1)
                 ],
               ),
+              const SizedBox(
+                height: 6,
+              ),
               Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  _buildButton('C', Colors.grey, 1),
-                  _buildButton('0', Colors.grey, 1),
-                  _buildButton('=', Colors.orange, 1),
+                  _buildButton('C', Colors.pinkAccent, 1),
+                  const SizedBox(
+                    width: 6,
+                  ),
+                  _buildButton('0', Colors.pinkAccent, 1),
+                  const SizedBox(
+                    width: 6,
+                  ),
+                  _buildEqualsButton('=', Colors.grey.shade600, 1),
+                  const SizedBox(
+                    width: 6,
+                  ),
                   _buildButton('+', Colors.orange, 1),
                 ],
               ),
             ],
           ),
+          const Padding(padding: EdgeInsets.all(6)),
         ],
       ),
     );
