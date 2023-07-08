@@ -186,10 +186,11 @@ class TTTHomeScreenState extends State<TTTHomeScreen> {
                   fontWeight: FontWeight.normal),
               textAlign: TextAlign.center,
             ),
+            subtitle: const Text("Let the best one win!",
+                style: TextStyle(color: Colors.white, fontSize: 14),
+                textAlign: TextAlign.center),
           ),
-          const SizedBox(
-            height: 20,
-          )
+          const SizedBox(height: 60),
         ]));
   }
 }
