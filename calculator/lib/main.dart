@@ -11,7 +11,9 @@ class CalculatorApp extends StatelessWidget {
     return MaterialApp(
       title: 'Calculator',
       color: const Color.fromRGBO(244, 233, 205, 100),
-      theme: ThemeData(primarySwatch: Colors.orange),
+      theme: ThemeData(
+          primarySwatch: Colors.indigo,
+          canvasColor: const Color.fromARGB(255, 14, 39, 60)),
       home: const CalculatorScreen(),
     );
   }
@@ -109,7 +111,7 @@ class CalculatorScreenState extends State<CalculatorScreen> {
             fontFamily: 'SFProDisplay',
             fontSize: 30.0,
             fontWeight: FontWeight.normal,
-            color: Colors.black,
+            color: Colors.white,
           ),
         ));
   }
@@ -134,7 +136,7 @@ class CalculatorScreenState extends State<CalculatorScreen> {
               fontFamily: 'SFProDisplay',
               fontSize: 30.0,
               fontWeight: FontWeight.normal,
-              color: Colors.black,
+              color: Colors.white,
             ),
           )),
     );
@@ -148,7 +150,7 @@ class CalculatorScreenState extends State<CalculatorScreen> {
         titleTextStyle: const TextStyle(
           fontFamily: 'SFProDisplay',
           fontSize: 20.0,
-          color: Colors.black,
+          color: Colors.white,
         ),
       ),
       body: Column(
@@ -162,7 +164,8 @@ class CalculatorScreenState extends State<CalculatorScreen> {
               style: const TextStyle(
                   fontFamily: 'SFProDisplay',
                   fontSize: 48.0,
-                  fontWeight: FontWeight.bold),
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white),
             ),
           ),
           const Expanded(
@@ -174,23 +177,23 @@ class CalculatorScreenState extends State<CalculatorScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  _buildButton('7', Colors.pinkAccent, 1),
+                  _buildButton('7', Colors.blueGrey, 1),
                   const SizedBox(
                     width: 6,
                   ),
-                  _buildButton('8', Colors.pinkAccent, 1),
+                  _buildButton('8', Colors.blueGrey, 1),
                   const SizedBox(
                     width: 6,
                   ),
-                  _buildButton('9', Colors.pinkAccent, 1),
+                  _buildButton('9', Colors.blueGrey, 1),
                   const SizedBox(
                     width: 6,
                   ),
-                  _buildButton('/', Colors.orange, 1),
+                  _buildButton('/', Colors.indigo, 1),
                   const SizedBox(
                     width: 6,
                   ),
-                  _buildButton('.', Colors.orange, 1),
+                  _buildButton('.', Colors.indigo, 1),
                 ],
               ),
               const SizedBox(
@@ -199,23 +202,23 @@ class CalculatorScreenState extends State<CalculatorScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  _buildButton('4', Colors.pinkAccent, 1),
+                  _buildButton('4', Colors.blueGrey, 1),
                   const SizedBox(
                     width: 6,
                   ),
-                  _buildButton('5', Colors.pinkAccent, 1),
+                  _buildButton('5', Colors.blueGrey, 1),
                   const SizedBox(
                     width: 6,
                   ),
-                  _buildButton('6', Colors.pinkAccent, 1),
+                  _buildButton('6', Colors.blueGrey, 1),
                   const SizedBox(
                     width: 6,
                   ),
-                  _buildButton('*', Colors.orange, 1),
+                  _buildButton('*', Colors.indigo, 1),
                   const SizedBox(
                     width: 6,
                   ),
-                  _buildButton('M', Colors.orange, 1),
+                  _buildButton('M', Colors.indigo, 1),
                 ],
               ),
               const SizedBox(
@@ -224,23 +227,23 @@ class CalculatorScreenState extends State<CalculatorScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  _buildButton('1', Colors.pinkAccent, 1),
+                  _buildButton('1', Colors.blueGrey, 1),
                   const SizedBox(
                     width: 6,
                   ),
-                  _buildButton('2', Colors.pinkAccent, 1),
+                  _buildButton('2', Colors.blueGrey, 1),
                   const SizedBox(
                     width: 6,
                   ),
-                  _buildButton('3', Colors.pinkAccent, 1),
+                  _buildButton('3', Colors.blueGrey, 1),
                   const SizedBox(
                     width: 6,
                   ),
-                  _buildButton('-', Colors.orange, 1),
+                  _buildButton('-', Colors.indigo, 1),
                   const SizedBox(
                     width: 6,
                   ),
-                  _buildButton('^', Colors.orange, 1)
+                  _buildButton('^', Colors.indigo, 1)
                 ],
               ),
               const SizedBox(
@@ -249,19 +252,19 @@ class CalculatorScreenState extends State<CalculatorScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  _buildButton('C', Colors.pinkAccent, 1),
+                  _buildButton('C', Colors.blueGrey, 1),
                   const SizedBox(
                     width: 6,
                   ),
-                  _buildButton('0', Colors.pinkAccent, 1),
+                  _buildButton('0', Colors.blueGrey, 1),
                   const SizedBox(
                     width: 6,
                   ),
-                  _buildEqualsButton('=', Colors.grey.shade600, 1),
+                  _buildEqualsButton('=', Colors.indigoAccent, 1),
                   const SizedBox(
                     width: 6,
                   ),
-                  _buildButton('+', Colors.orange, 1),
+                  _buildButton('+', Colors.indigo, 1),
                 ],
               ),
             ],

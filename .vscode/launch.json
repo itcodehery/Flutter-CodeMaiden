@@ -1,0 +1,128 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "calculator",
+            "cwd": "calculator",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "calculator (profile mode)",
+            "cwd": "calculator",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "calculator (release mode)",
+            "cwd": "calculator",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        },
+        {
+            "name": "five_colors",
+            "cwd": "five_colors",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "five_colors (profile mode)",
+            "cwd": "five_colors",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "five_colors (release mode)",
+            "cwd": "five_colors",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        },
+        {
+            "name": "musidict",
+            "cwd": "musidict",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "musidict (profile mode)",
+            "cwd": "musidict",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "musidict (release mode)",
+            "cwd": "musidict",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        },
+        {
+            "name": "netflix_clone",
+            "cwd": "netflix_clone",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "netflix_clone (profile mode)",
+            "cwd": "netflix_clone",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "netflix_clone (release mode)",
+            "cwd": "netflix_clone",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        },
+        {
+            "name": "new_flutter_app",
+            "cwd": "new_flutter_app",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "new_flutter_app (profile mode)",
+            "cwd": "new_flutter_app",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "new_flutter_app (release mode)",
+            "cwd": "new_flutter_app",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        },
+        {
+            "name": "range_selector",
+            "cwd": "range_selector",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "range_selector (profile mode)",
+            "cwd": "range_selector",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "range_selector (release mode)",
+            "cwd": "range_selector",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        }
+    ]
+}
