@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:musidict/home.dart';
-import 'package:musidict/main.dart';
+import 'package:musidict/sharedprefhelper.dart';
 
-class Library extends StatelessWidget {
-  Library({Key? key}) : super(key: key);
+class Library extends StatefulWidget {
+  const Library({Key? key}) : super(key: key);
 
+  @override
+  State<Library> createState() => _LibraryState();
+}
+
+class _LibraryState extends State<Library> {
   Widget createCard(String titletext, String subtitletext) {
     return Column(children: [
       const SizedBox(height: 2),
@@ -31,7 +35,24 @@ class Library extends StatelessWidget {
     ]);
   }
 
-  final Map savedIterables = const Home().createState().savedEntries;
+  Map savedIterables = {};
+  int saved = 0;
+
+  void getLibraryCards() async {
+    // Retrieve the map from shared preferences and update the state
+    final mapFromSharedPreferences = await SharedPreferencesHelper.getMap();
+    setState(() {
+      savedIterables = mapFromSharedPreferences;
+      savedIterables.forEach((key, value) => saved++);
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    // Call the function to retrieve the map from shared preferences
+    getLibraryCards();
+  }
 
   Widget nullPage() {
     return const Scaffold(

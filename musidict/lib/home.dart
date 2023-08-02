@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:musidict/sharedprefhelper.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -13,6 +13,8 @@ class HomeState extends State<Home> {
   var savedEntries = <String, String>{};
 
   Widget createCard(String titletext, String subtitletext) {
+    IconData addedToLibrary = Icons.bookmark_add_outlined;
+
     return Column(children: [
       const SizedBox(height: 2),
       Card(
@@ -32,9 +34,21 @@ class HomeState extends State<Home> {
                 subtitleTextStyle: const TextStyle(
                     fontStyle: FontStyle.italic, color: Colors.amberAccent),
                 trailing: ElevatedButton(
-                    onPressed: () {
-                      var saved = {titleText: subtitleText};
-                      savedEntries.addEntries(saved.entries);
+                    onPressed: () async {
+                      setState(() {
+                        if (addedToLibrary == Icons.bookmark_add_outlined) {
+                          savedEntries[titletext] = subtitletext;
+                          print('Saved Entries: $savedEntries');
+                          SharedPreferencesHelper.saveMap(savedEntries);
+                          addedToLibrary = Icons.bookmark_outlined;
+                        } else {
+                          savedEntries.remove(titletext);
+                          SharedPreferencesHelper.saveMap(savedEntries);
+                          print('Saved Entries: $savedEntries');
+                          addedToLibrary = Icons.bookmark_add_outlined;
+                        }
+                        ;
+                      });
                     },
                     style: ButtonStyle(
                         backgroundColor:
@@ -42,7 +56,7 @@ class HomeState extends State<Home> {
                         padding: const MaterialStatePropertyAll(
                           EdgeInsets.fromLTRB(2, 0, 2, 0),
                         )),
-                    child: const Icon(Icons.bookmark_add_outlined)),
+                    child: Icon(addedToLibrary)),
               ),
             ],
           )),

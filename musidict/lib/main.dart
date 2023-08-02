@@ -18,7 +18,7 @@ class _MyAppState extends State<MyApp> {
 
   static List<Widget> navigationPages = [
     const Home(),
-    Library(),
+    const Library(),
   ];
 
   List<BottomNavigationBarItem> navItems = [
