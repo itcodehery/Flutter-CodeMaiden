@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:musidict/main.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -30,7 +30,7 @@ class HomeState extends State<Home> {
                 subtitle: Text(subtitletext),
                 textColor: Colors.white,
                 subtitleTextStyle: const TextStyle(
-                    fontStyle: FontStyle.italic, color: Colors.grey),
+                    fontStyle: FontStyle.italic, color: Colors.amberAccent),
                 trailing: ElevatedButton(
                     onPressed: () {
                       var saved = {titleText: subtitleText};

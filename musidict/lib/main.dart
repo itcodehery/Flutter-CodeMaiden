@@ -14,7 +14,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  int selectedIndex = 1;
+  int selectedIndex = 0;
 
   static List<Widget> navigationPages = [
     const Home(),
@@ -35,12 +35,25 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
+    Color defaultBGColor = const Color.fromARGB(255, 20, 20, 20);
     return MaterialApp(
         theme: ThemeData(
-          canvasColor: const Color.fromARGB(255, 20, 20, 20),
+          fontFamily: 'Segoe',
+          canvasColor: defaultBGColor,
           primaryColor: const Color.fromARGB(255, 255, 255, 255),
         ),
         home: Scaffold(
+          appBar: AppBar(
+            title: const Text(
+              'Musidict',
+              style: TextStyle(
+                  color: Colors.amber,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 24),
+            ),
+            centerTitle: true,
+            backgroundColor: defaultBGColor,
+          ),
           body: navigationPages[selectedIndex],
           bottomNavigationBar: BottomNavigationBar(
               items: List.of(navItems),
