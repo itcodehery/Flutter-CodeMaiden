@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:musidict/sharedprefhelper.dart';
+import 'package:musidict/sharedphicons.dart';
 
 class Library extends StatefulWidget {
   const Library({Key? key}) : super(key: key);
@@ -9,7 +10,25 @@ class Library extends StatefulWidget {
 }
 
 class _LibraryState extends State<Library> {
+  static const String savedEntriesKey = 'saved_entries';
+  static const String cardIconsKey = 'card_icons';
+
+  Map savedIterables = <String, String>{};
+  int saved = 0;
+
+  void getLibraryCards() async {
+    // Retrieve the map from shared preferences and update the state
+    final mapFromSharedPreferences =
+        await SharedPreferencesHelper.getMap(savedEntriesKey);
+    setState(() {
+      savedIterables = mapFromSharedPreferences;
+      savedIterables.forEach((key, value) => saved++);
+    });
+  }
+
   Widget createCard(String titletext, String subtitletext) {
+    IconData cardIconDef = Icons.remove_circle_outline;
+
     return Column(children: [
       const SizedBox(height: 2),
       Card(
@@ -23,28 +42,30 @@ class _LibraryState extends State<Library> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               ListTile(
-                title: Text(titletext),
-                subtitle: Text(subtitletext),
-                textColor: Colors.white,
-                subtitleTextStyle: const TextStyle(
-                    fontStyle: FontStyle.italic, color: Colors.grey),
-              ),
+                  title: Text(titletext),
+                  subtitle: Text(subtitletext),
+                  textColor: Colors.white,
+                  subtitleTextStyle: const TextStyle(
+                      fontStyle: FontStyle.italic, color: Colors.grey),
+                  trailing: ElevatedButton(
+                    onPressed: () {
+                      setState(() {
+                        savedIterables.remove(titletext);
+                        saved--;
+                      });
+                    },
+                    style: ButtonStyle(
+                      shape: MaterialStatePropertyAll(RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20))),
+                      backgroundColor:
+                          const MaterialStatePropertyAll(Colors.transparent),
+                    ),
+                    child: Icon(cardIconDef),
+                  )),
             ],
           )),
       const SizedBox(height: 2),
     ]);
-  }
-
-  Map savedIterables = {};
-  int saved = 0;
-
-  void getLibraryCards() async {
-    // Retrieve the map from shared preferences and update the state
-    final mapFromSharedPreferences = await SharedPreferencesHelper.getMap();
-    setState(() {
-      savedIterables = mapFromSharedPreferences;
-      savedIterables.forEach((key, value) => saved++);
-    });
   }
 
   @override
@@ -58,7 +79,7 @@ class _LibraryState extends State<Library> {
     return const Scaffold(
       body: Center(
         child: Text(
-          'No values saved',
+          'Save some hard words here!',
           style: TextStyle(color: Colors.grey),
         ),
       ),
@@ -67,17 +88,39 @@ class _LibraryState extends State<Library> {
 
   @override
   Widget build(BuildContext context) {
-    return (savedIterables.isEmpty)
-        ? nullPage()
-        : Scaffold(
-            body: Padding(
-                padding: const EdgeInsets.all(10),
-                child: Column(
-                  children: [
-                    for (var entry in savedIterables.entries)
-                      createCard(entry.key, entry.value)
-                  ],
-                )),
-          );
+    return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () async {
+          setState(() {
+            savedIterables = {};
+          });
+        },
+        backgroundColor: Colors.amber,
+        child: const Icon(Icons.clear_all, color: Colors.black87),
+      ),
+      body: (savedIterables.isEmpty)
+          ? nullPage()
+          : Padding(
+              padding: const EdgeInsets.all(10),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(1),
+                    child: Row(children: [
+                      const SizedBox(width: 10),
+                      Text('$saved saved Cards:',
+                          style: TextStyle(color: Colors.amber.shade100)),
+                    ]),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  for (var entry in savedIterables.entries)
+                    createCard(entry.key, entry.value)
+                ],
+              )),
+    );
   }
 }

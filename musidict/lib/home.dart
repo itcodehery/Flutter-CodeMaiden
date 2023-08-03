@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:musidict/sharedphicons.dart';
 import 'package:musidict/sharedprefhelper.dart';
 
 class Home extends StatefulWidget {
@@ -9,11 +10,18 @@ class Home extends StatefulWidget {
 }
 
 class HomeState extends State<Home> {
+  static const String cardIconsKey = 'card_icons';
+  static const String savedEntriesKey = 'saved_entries';
+
   String titleText = '', subtitleText = '';
   var savedEntries = <String, String>{};
+  var cardIcons = <String, IconData>{};
 
   Widget createCard(String titletext, String subtitletext) {
-    IconData addedToLibrary = Icons.bookmark_add_outlined;
+    IconData initialIcon = savedEntries.containsKey(titletext)
+        ? Icons.bookmark_outlined
+        : Icons.bookmark_add_outlined;
+    cardIcons[titletext] = initialIcon;
 
     return Column(children: [
       const SizedBox(height: 2),
@@ -32,31 +40,38 @@ class HomeState extends State<Home> {
                 subtitle: Text(subtitletext),
                 textColor: Colors.white,
                 subtitleTextStyle: const TextStyle(
-                    fontStyle: FontStyle.italic, color: Colors.amberAccent),
+                    fontStyle: FontStyle.italic, color: Colors.blue),
                 trailing: ElevatedButton(
                     onPressed: () async {
-                      setState(() {
-                        if (addedToLibrary == Icons.bookmark_add_outlined) {
+                      if (cardIcons[titletext] == Icons.bookmark_add_outlined) {
+                        setState(() {
                           savedEntries[titletext] = subtitletext;
-                          print('Saved Entries: $savedEntries');
-                          SharedPreferencesHelper.saveMap(savedEntries);
-                          addedToLibrary = Icons.bookmark_outlined;
-                        } else {
+                          debugPrint('Saved Entries: $savedEntries');
+                          SharedPreferencesHelper.saveMap(
+                              savedEntries, savedEntriesKey);
+                          cardIcons[titletext] = Icons.bookmark_outlined;
+                          SharedPreferencesHelperIcons.saveMap(
+                              cardIcons, cardIconsKey);
+                        });
+                      } else {
+                        setState(() {
                           savedEntries.remove(titletext);
-                          SharedPreferencesHelper.saveMap(savedEntries);
-                          print('Saved Entries: $savedEntries');
-                          addedToLibrary = Icons.bookmark_add_outlined;
-                        }
-                        ;
-                      });
+                          SharedPreferencesHelper.saveMap(
+                              savedEntries, savedEntriesKey);
+                          debugPrint('Saved Entries: $savedEntries');
+                          cardIcons[titletext] = Icons.bookmark_add_outlined;
+                          SharedPreferencesHelperIcons.saveMap(
+                              cardIcons, cardIconsKey);
+                        });
+                      }
                     },
                     style: ButtonStyle(
-                        backgroundColor:
-                            MaterialStatePropertyAll(Colors.grey[850]),
-                        padding: const MaterialStatePropertyAll(
-                          EdgeInsets.fromLTRB(2, 0, 2, 0),
-                        )),
-                    child: Icon(addedToLibrary)),
+                      shape: MaterialStatePropertyAll(RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20))),
+                      backgroundColor:
+                          MaterialStatePropertyAll(Colors.amber.withAlpha(50)),
+                    ),
+                    child: Icon(cardIcons[titletext])),
               ),
             ],
           )),
@@ -77,14 +92,27 @@ class HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            Navigator.of(context).pushReplacementNamed("Search");
+          },
+          backgroundColor: Colors.amber,
+          child: const Icon(
+            Icons.search,
+            color: Colors.black87,
+          ),
+        ),
         floatingActionButtonLocation: FloatingActionButtonLocation
             .endFloat, //floating button location is above the navigation bar
 
-        body: ListView(
-          children: <Widget>[
-            for (var value in dictionary.entries)
-              createCard(value.key, value.value)
-          ],
+        body: Padding(
+          padding: const EdgeInsets.all(10),
+          child: ListView(
+            children: <Widget>[
+              for (var value in dictionary.entries)
+                createCard(value.key, value.value)
+            ],
+          ),
         ));
   }
 }

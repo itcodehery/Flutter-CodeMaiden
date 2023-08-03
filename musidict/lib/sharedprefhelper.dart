@@ -2,17 +2,15 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert'; // For JSON encoding/decoding
 
 class SharedPreferencesHelper {
-  static const String _mapKey = 'map_key';
-
-  static Future<void> saveMap(Map<String, String> map) async {
+  static Future<void> saveMap(Map<String, String> map, String key) async {
     final prefs = await SharedPreferences.getInstance();
     final jsonString = json.encode(map);
-    prefs.setString(_mapKey, jsonString);
+    prefs.setString(key, jsonString);
   }
 
-  static Future<Map<String, String>> getMap() async {
+  static Future<Map<String, String>> getMap(String key) async {
     final prefs = await SharedPreferences.getInstance();
-    final jsonString = prefs.getString(_mapKey);
+    final jsonString = prefs.getString(key);
     if (jsonString != null) {
       return Map<String, String>.from(json.decode(jsonString));
     } else {

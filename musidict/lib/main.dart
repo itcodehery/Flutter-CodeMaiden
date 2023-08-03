@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:musidict/home.dart';
 import 'package:musidict/library.dart';
+import 'package:musidict/search_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -37,31 +38,35 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     Color defaultBGColor = const Color.fromARGB(255, 20, 20, 20);
     return MaterialApp(
-        theme: ThemeData(
-          fontFamily: 'Segoe',
-          canvasColor: defaultBGColor,
-          primaryColor: const Color.fromARGB(255, 255, 255, 255),
-        ),
-        home: Scaffold(
-          appBar: AppBar(
-            title: const Text(
-              'Musidict',
-              style: TextStyle(
-                  color: Colors.amber,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 24),
-            ),
-            centerTitle: true,
-            backgroundColor: defaultBGColor,
+      theme: ThemeData(
+        fontFamily: 'Segoe',
+        canvasColor: defaultBGColor,
+        primaryColor: const Color.fromARGB(255, 255, 255, 255),
+      ),
+      home: Scaffold(
+        appBar: AppBar(
+          title: const Text(
+            'Cadence',
+            style: TextStyle(
+                color: Colors.amber, fontWeight: FontWeight.w100, fontSize: 22),
           ),
-          body: navigationPages[selectedIndex],
-          bottomNavigationBar: BottomNavigationBar(
-              items: List.of(navItems),
-              currentIndex: selectedIndex,
-              selectedItemColor: Colors.amber,
-              unselectedItemColor: Colors.grey,
-              showUnselectedLabels: false,
-              onTap: _onTapTap),
-        ));
+          centerTitle: true,
+          backgroundColor: defaultBGColor,
+        ),
+        body: navigationPages[selectedIndex],
+        bottomNavigationBar: BottomNavigationBar(
+            items: List.of(navItems),
+            currentIndex: selectedIndex,
+            selectedItemColor: Colors.amber,
+            unselectedItemColor: Colors.grey,
+            showSelectedLabels: false,
+            showUnselectedLabels: false,
+            onTap: _onTapTap),
+      ),
+      routes: {
+        "Home": (context) => const Home(),
+        "Search": (context) => const SearchPage()
+      },
+    );
   }
 }
