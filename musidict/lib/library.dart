@@ -119,6 +119,7 @@ class _LibraryState extends State<Library> {
             // });
             destroyIconMap();
             savedIterables = {};
+            SharedPreferencesHelper.saveMap(savedIterables, savedEntriesKey);
           });
         },
         backgroundColor: Colors.amber,
