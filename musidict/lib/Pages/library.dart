@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:musidict/sharedprefhelper.dart';
-import 'package:musidict/sharedphicons.dart';
+import 'package:musidict/Services/sharedphicons.dart';
+import 'package:musidict/Services/sharedprefhelper.dart';
 
 class Library extends StatefulWidget {
   const Library({Key? key}) : super(key: key);
@@ -55,7 +55,7 @@ class _LibraryState extends State<Library> {
                   subtitle: Text(subtitletext),
                   textColor: Colors.white,
                   subtitleTextStyle: const TextStyle(
-                      fontStyle: FontStyle.italic, color: Colors.grey),
+                      fontStyle: FontStyle.italic, color: Colors.black45),
                   trailing: ElevatedButton(
                     onPressed: () {
                       setState(() {
@@ -72,10 +72,11 @@ class _LibraryState extends State<Library> {
                     style: ButtonStyle(
                       shape: MaterialStatePropertyAll(RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(20))),
+                      elevation: const MaterialStatePropertyAll(0.0),
                       backgroundColor:
-                          const MaterialStatePropertyAll(Colors.transparent),
+                          MaterialStatePropertyAll(Colors.grey[900]),
                     ),
-                    child: Icon(cardIconDef),
+                    child: Icon(cardIconDef, color: Colors.white),
                   )),
             ],
           )),
@@ -131,6 +132,7 @@ class _LibraryState extends State<Library> {
               padding: const EdgeInsets.all(10),
               child: ListView(
                 children: [
+                  const SizedBox(height: 10),
                   Padding(
                     padding: const EdgeInsets.all(1),
                     child: Row(children: [

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:musidict/library.dart';
-import 'package:musidict/sharedphicons.dart';
-import 'package:musidict/sharedprefhelper.dart';
+import 'package:musidict/Services/sharedphicons.dart';
+import 'package:musidict/Services/sharedprefhelper.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -116,8 +115,8 @@ class HomeState extends State<Home> {
                     style: ButtonStyle(
                       shape: MaterialStatePropertyAll(RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(20))),
-                      backgroundColor:
-                          MaterialStatePropertyAll(Colors.amber.withAlpha(50)),
+                      // backgroundColor:
+                      //     MaterialStatePropertyAll(Colors.amber.withAlpha(100)),
                     ),
                     child: Icon(cardIcons[titletext])),
               ),
@@ -130,34 +129,35 @@ class HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            Navigator.of(context).pushReplacementNamed("Search");
-          },
-          backgroundColor: Colors.amber,
-          child: const Icon(
-            Icons.search,
-            color: Colors.black87,
-          ),
-        ),
-        floatingActionButtonLocation: FloatingActionButtonLocation
-            .endFloat, //floating button location is above the navigation bar
+        // floatingActionButton: FloatingActionButton(
+        //   onPressed: () {
+        //     Navigator.of(context).pushReplacementNamed("Search");
+        //   },
+        //   backgroundColor: Colors.amber,
+        //   child: const Icon(
+        //     Icons.search,
+        //     color: Colors.black87,
+        //   ),
+        // ),
+        // floatingActionButtonLocation: FloatingActionButtonLocation
+        //     .endFloat, floating button location is above the navigation bar
 
         body: Padding(
-          padding: const EdgeInsets.all(10),
-          child: ListView(
-            children: <Widget>[
-              Row(children: [
-                const SizedBox(width: 10),
-                Text('Grade 1 - 8 : ',
-                    style: TextStyle(color: Colors.amber.shade100)),
-              ]),
-              const SizedBox(height: 10),
-              for (var value in dictionary.entries)
-                createCard(value.key, value.value),
-              const SizedBox(height: 70),
-            ],
-          ),
-        ));
+      padding: const EdgeInsets.all(10),
+      child: ListView(
+        children: <Widget>[
+          const SizedBox(height: 10),
+          Row(children: [
+            const SizedBox(width: 10),
+            Text('Grade 1 - 8 : ',
+                style: TextStyle(color: Colors.amber.shade100)),
+          ]),
+          const SizedBox(height: 10),
+          for (var value in dictionary.entries)
+            createCard(value.key, value.value),
+          const SizedBox(height: 70),
+        ],
+      ),
+    ));
   }
 }

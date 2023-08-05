@@ -53,4 +53,9 @@ flutter:
       - asset: assets/segoeui.ttf
       - asset: assets/segoeuib.ttf
 
+    - family: Industry
+      fonts:
+      - asset: assets/Industry/Industry-Light.ttf
+      - asset: assets/Industry/Industry-Medium.ttf
+
   uses-material-design: true
