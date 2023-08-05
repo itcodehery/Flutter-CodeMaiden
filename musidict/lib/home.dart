@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:musidict/library.dart';
 import 'package:musidict/sharedphicons.dart';
 import 'package:musidict/sharedprefhelper.dart';
 
@@ -15,13 +16,56 @@ class HomeState extends State<Home> {
 
   String titleText = '', subtitleText = '';
   var savedEntries = <String, String>{};
+
+  var dictionary = <String, String>{
+    "Allegro": "Play at a fast pace",
+    "Allegretto": "Play fast but not as fast as Allegro",
+    "Pianissimo": "very soft",
+    "Piano": "soft",
+    "Mezzo Piano": "medium soft",
+    "Mezzo Forte": "medium loud",
+    "Forte": "to be played loudly",
+    "Con Fuoso": "with fire",
+    "Con warto": "with wetness",
+  };
+
   Map<String, IconData> cardIcons = {};
+
+  void initializeIcons() {
+    dictionary.forEach((key, value) {
+      cardIcons.putIfAbsent(key, () => Icons.bookmark_add_outlined);
+    });
+  }
+
+  static var calledOnce = false;
+
+  @override
+  void initState() {
+    super.initState();
+    if (calledOnce) {
+      initializeIcons();
+      getIconData();
+      getLibraryCards();
+    } else {
+      initializeIcons();
+      getIconData();
+      calledOnce = true;
+    }
+  }
 
   void getIconData() async {
     final mapFromSharPref =
         await SharedPreferencesHelperIcons.getMap(cardIconsKey);
     setState(() {
       cardIcons = mapFromSharPref;
+    });
+  }
+
+  void getLibraryCards() async {
+    final mapFromSharedPreferences =
+        await SharedPreferencesHelper.getMap(savedEntriesKey);
+    setState(() {
+      savedEntries = mapFromSharedPreferences;
     });
   }
 
@@ -81,24 +125,6 @@ class HomeState extends State<Home> {
           )),
       const SizedBox(height: 2),
     ]);
-  }
-
-  var dictionary = <String, String>{
-    "Allegro": "Play at a fast pace",
-    "Allegretto": "Play fast but not as fast as Allegro",
-    "Pianissimo": "very soft",
-    "Piano": "soft",
-    "Mezzo Piano": "medium soft",
-    "Mezzo Forte": "medium loud",
-    "Forte": "to be played loudly",
-    "Con Fuoso": "with fire",
-    "Con warto": "with wetness",
-  };
-
-  @override
-  void initState() {
-    super.initState();
-    getIconData();
   }
 
   @override

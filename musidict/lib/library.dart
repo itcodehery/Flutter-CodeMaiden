@@ -18,6 +18,7 @@ class _LibraryState extends State<Library> {
   int saved = 0;
 
   void getLibraryCards() async {
+    //from the icon map the cards should respond
     final mapFromSharedPreferences =
         await SharedPreferencesHelper.getMap(savedEntriesKey);
     setState(() {
@@ -31,9 +32,6 @@ class _LibraryState extends State<Library> {
         await SharedPreferencesHelperIcons.getMap(cardIconsKey);
     setState(() {
       savedIcons = mapFromSharPref;
-      savedIcons.forEach((key, value) {
-        saved++;
-      });
     });
   }
 
@@ -62,6 +60,9 @@ class _LibraryState extends State<Library> {
                     onPressed: () {
                       setState(() {
                         savedIterables.remove(titletext);
+                        savedIcons[titletext] = Icons.bookmark_add_outlined;
+                        SharedPreferencesHelperIcons.saveMap(
+                            savedIcons, cardIconsKey);
                         SharedPreferencesHelper.saveMap(
                             savedIterables, savedEntriesKey);
                         debugPrint('$savedIterables saved!');
@@ -82,11 +83,18 @@ class _LibraryState extends State<Library> {
     ]);
   }
 
+  void destroyIconMap() async {
+    savedIcons.forEach((key, value) {
+      savedIcons[key] = Icons.bookmark_add_outlined;
+    });
+    SharedPreferencesHelperIcons.saveMap(savedIcons, cardIconsKey);
+  }
+
   @override
   void initState() {
     super.initState();
-    // Call the function to retrieve the map from shared preferences
     getLibraryCards();
+    getIconData();
   }
 
   Widget nullPage() {
@@ -104,10 +112,13 @@ class _LibraryState extends State<Library> {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-        onPressed: () async {
+        onPressed: () {
           setState(() {
+            // savedIcons.forEach((key, value) {
+            //   value == Icons.bookmark_add_outlined;
+            // });
+            destroyIconMap();
             savedIterables = {};
-            SharedPreferencesHelper.saveMap(savedIterables, savedEntriesKey);
           });
         },
         backgroundColor: Colors.amber,
