@@ -15,14 +15,17 @@ class HomeState extends State<Home> {
 
   String titleText = '', subtitleText = '';
   var savedEntries = <String, String>{};
-  var cardIcons = <String, IconData>{};
+  Map<String, IconData> cardIcons = {};
+
+  void getIconData() async {
+    final mapFromSharPref =
+        await SharedPreferencesHelperIcons.getMap(cardIconsKey);
+    setState(() {
+      cardIcons = mapFromSharPref;
+    });
+  }
 
   Widget createCard(String titletext, String subtitletext) {
-    IconData initialIcon = savedEntries.containsKey(titletext)
-        ? Icons.bookmark_outlined
-        : Icons.bookmark_add_outlined;
-    cardIcons[titletext] = initialIcon;
-
     return Column(children: [
       const SizedBox(height: 2),
       Card(
@@ -53,7 +56,8 @@ class HomeState extends State<Home> {
                           SharedPreferencesHelperIcons.saveMap(
                               cardIcons, cardIconsKey);
                         });
-                      } else {
+                      } else if (cardIcons[titletext] ==
+                          Icons.bookmark_outlined) {
                         setState(() {
                           savedEntries.remove(titletext);
                           SharedPreferencesHelper.saveMap(
@@ -86,8 +90,16 @@ class HomeState extends State<Home> {
     "Piano": "soft",
     "Mezzo Piano": "medium soft",
     "Mezzo Forte": "medium loud",
-    "Forte": "to be played loudly"
+    "Forte": "to be played loudly",
+    "Con Fuoso": "with fire",
+    "Con warto": "with wetness",
   };
+
+  @override
+  void initState() {
+    super.initState();
+    getIconData();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -109,8 +121,15 @@ class HomeState extends State<Home> {
           padding: const EdgeInsets.all(10),
           child: ListView(
             children: <Widget>[
+              Row(children: [
+                const SizedBox(width: 10),
+                Text('Grade 1 - 8 : ',
+                    style: TextStyle(color: Colors.amber.shade100)),
+              ]),
+              const SizedBox(height: 10),
               for (var value in dictionary.entries)
-                createCard(value.key, value.value)
+                createCard(value.key, value.value),
+              const SizedBox(height: 70),
             ],
           ),
         ));

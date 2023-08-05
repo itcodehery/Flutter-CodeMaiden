@@ -13,16 +13,27 @@ class _LibraryState extends State<Library> {
   static const String savedEntriesKey = 'saved_entries';
   static const String cardIconsKey = 'card_icons';
 
-  Map savedIterables = <String, String>{};
+  Map<String, String> savedIterables = {};
+  Map<String, IconData> savedIcons = {};
   int saved = 0;
 
   void getLibraryCards() async {
-    // Retrieve the map from shared preferences and update the state
     final mapFromSharedPreferences =
         await SharedPreferencesHelper.getMap(savedEntriesKey);
     setState(() {
       savedIterables = mapFromSharedPreferences;
       savedIterables.forEach((key, value) => saved++);
+    });
+  }
+
+  void getIconData() async {
+    final mapFromSharPref =
+        await SharedPreferencesHelperIcons.getMap(cardIconsKey);
+    setState(() {
+      savedIcons = mapFromSharPref;
+      savedIcons.forEach((key, value) {
+        saved++;
+      });
     });
   }
 
@@ -51,6 +62,9 @@ class _LibraryState extends State<Library> {
                     onPressed: () {
                       setState(() {
                         savedIterables.remove(titletext);
+                        SharedPreferencesHelper.saveMap(
+                            savedIterables, savedEntriesKey);
+                        debugPrint('$savedIterables saved!');
                         saved--;
                       });
                     },
@@ -93,6 +107,7 @@ class _LibraryState extends State<Library> {
         onPressed: () async {
           setState(() {
             savedIterables = {};
+            SharedPreferencesHelper.saveMap(savedIterables, savedEntriesKey);
           });
         },
         backgroundColor: Colors.amber,
@@ -102,9 +117,7 @@ class _LibraryState extends State<Library> {
           ? nullPage()
           : Padding(
               padding: const EdgeInsets.all(10),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
+              child: ListView(
                 children: [
                   Padding(
                     padding: const EdgeInsets.all(1),
@@ -118,7 +131,8 @@ class _LibraryState extends State<Library> {
                     height: 10,
                   ),
                   for (var entry in savedIterables.entries)
-                    createCard(entry.key, entry.value)
+                    createCard(entry.key, entry.value),
+                  const SizedBox(height: 70),
                 ],
               )),
     );
