@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:musidict/Services/sharedphicons.dart';
 import 'package:musidict/Services/sharedprefhelper.dart';
+import 'package:musidict/Services/dictionary.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -15,24 +16,18 @@ class HomeState extends State<Home> {
 
   String titleText = '', subtitleText = '';
   var savedEntries = <String, String>{};
-
-  var dictionary = <String, String>{
-    "Allegro": "Play at a fast pace",
-    "Allegretto": "Play fast but not as fast as Allegro",
-    "Pianissimo": "very soft",
-    "Piano": "soft",
-    "Mezzo Piano": "medium soft",
-    "Mezzo Forte": "medium loud",
-    "Forte": "to be played loudly",
-    "Con Fuoso": "with fire",
-    "Con warto": "with wetness",
-  };
-
+  var dictionary = Dictionary().grade1;
   Map<String, IconData> cardIcons = {};
 
   void initializeIcons() {
+    //this method added the 'not bookmarked' icon as the default for every card
     dictionary.forEach((key, value) {
       cardIcons.putIfAbsent(key, () => Icons.bookmark_add_outlined);
+    });
+    dictionary.forEach((key, value) {
+      cardIcons.updateAll(
+        (key, value) => Icons.bookmark_add_outlined,
+      );
     });
   }
 
@@ -44,7 +39,6 @@ class HomeState extends State<Home> {
     if (calledOnce) {
       initializeIcons();
       getIconData();
-      getLibraryCards();
     } else {
       initializeIcons();
       getIconData();

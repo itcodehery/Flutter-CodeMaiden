@@ -57,30 +57,16 @@ class _MyAppState extends State<MyApp> {
               onSurface: Colors.white38)),
       home: Scaffold(
         appBar: AppBar(
-          title: const Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Cadence',
-                style: TextStyle(
-                    color: Colors.amber,
-                    fontFamily: 'Industry',
-                    fontWeight: FontWeight.w600,
-                    fontSize: 24,
-                    letterSpacing: 2),
-              ),
-              SizedBox(height: 4),
-              Text(
-                'The Music Dictionary',
-                style: TextStyle(
-                    color: Colors.amberAccent,
-                    fontFamily: 'Industry',
-                    fontSize: 14,
-                    letterSpacing: 2),
-              )
-            ],
+          title: const Text(
+            'Cadence',
+            style: TextStyle(
+                color: Colors.amber,
+                fontFamily: 'Segoe',
+                fontWeight: FontWeight.w600,
+                fontSize: 26,
+                letterSpacing: 0),
           ),
-          centerTitle: false,
+          centerTitle: true,
           backgroundColor: defaultBGColor,
         ),
         body: navigationPages[selectedIndex],
