@@ -59,14 +59,10 @@ class _MyAppState extends State<MyApp> {
               onSurface: Colors.white38)),
       home: Scaffold(
         appBar: AppBar(
-          title: const Text(
-            'Cadence',
-            style: TextStyle(
-                color: Colors.amber,
-                fontFamily: 'Segoe',
-                fontWeight: FontWeight.w600,
-                fontSize: 26,
-                letterSpacing: 0),
+          title: Image.asset(
+            'assets/CadenceAppBar.png',
+            width: 50,
+            height: 50,
           ),
           centerTitle: true,
           backgroundColor: defaultBGColor,

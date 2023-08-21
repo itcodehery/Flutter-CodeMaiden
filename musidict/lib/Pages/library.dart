@@ -137,7 +137,7 @@ class _LibraryState extends State<Library> {
                     padding: const EdgeInsets.all(1),
                     child: Row(children: [
                       const SizedBox(width: 10),
-                      Text('$saved saved Cards:',
+                      Text('$saved saved terms:',
                           style: TextStyle(color: Colors.amber.shade100)),
                     ]),
                   ),

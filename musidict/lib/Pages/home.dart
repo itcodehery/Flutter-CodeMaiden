@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:musidict/Services/sharedphicons.dart';
 import 'package:musidict/Services/sharedprefhelper.dart';
 import 'package:musidict/Services/dictionary.dart';
+import 'package:musidict/Services/sharedpreffeat.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -34,11 +35,19 @@ class HomeState extends State<Home> {
     });
   }
 
+  int randomValue = 0;
   static var calledOnce = false;
 
   @override
   void initState() {
     super.initState();
+    generateAndStoreRandomValue().then((_) {
+      getRandomValue().then((value) {
+        setState(() {
+          randomValue = value;
+        });
+      });
+    });
     initializeIcons();
     if (calledOnce) {
       getIconData();
@@ -121,9 +130,9 @@ class HomeState extends State<Home> {
     ]);
   }
 
-  Widget featuredCard(int dictionaryEntry) {
-    var titletext = dictionary.keys.elementAt(dictionaryEntry);
-    var subtitletext = dictionary.values.elementAt(dictionaryEntry);
+  Widget featuredCard() {
+    var titletext = dictionary.keys.elementAt(randomValue);
+    var subtitletext = dictionary.values.elementAt(randomValue);
 
     return Column(children: [
       const SizedBox(height: 2),
@@ -164,11 +173,11 @@ class HomeState extends State<Home> {
           Row(children: [
             const SizedBox(width: 10),
             //Random().nextInt(dictionary.length - 1)
-            Text('Featured Word: ',
+            Text('Featured term of the day: ',
                 style: TextStyle(color: Colors.amber.shade100)),
           ]),
           const SizedBox(height: 10),
-          featuredCard(Random().nextInt(dictionary.length - 1)),
+          featuredCard(),
           const SizedBox(height: 10),
           Row(children: [
             const SizedBox(width: 10),

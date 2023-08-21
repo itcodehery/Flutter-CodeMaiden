@@ -57,4 +57,8 @@ flutter:
       - asset: assets/Industry/Industry-Light.ttf
       - asset: assets/Industry/Industry-Medium.ttf
 
+  assets:
+    - assets/icon.png
+    - assets/CadenceAppBar.png
+
   uses-material-design: true
