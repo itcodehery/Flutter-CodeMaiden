@@ -20,12 +20,14 @@ class _MyAppState extends State<MyApp> {
   static List<Widget> navigationPages = [
     const Home(),
     const Library(),
+    const SearchPage(),
   ];
 
   List<BottomNavigationBarItem> navItems = [
     const BottomNavigationBarItem(icon: Icon(Icons.home_filled), label: 'Home'),
     const BottomNavigationBarItem(
-        icon: Icon(Icons.book_rounded), label: 'Library')
+        icon: Icon(Icons.book_rounded), label: 'Library'),
+    const BottomNavigationBarItem(icon: Icon(Icons.search), label: 'Search')
   ];
 
   void _onTapTap(int index) {

@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:musidict/Services/sharedphicons.dart';
 import 'package:musidict/Services/sharedprefhelper.dart';
@@ -16,7 +18,8 @@ class HomeState extends State<Home> {
 
   String titleText = '', subtitleText = '';
   var savedEntries = <String, String>{};
-  var dictionary = Dictionary().grade1;
+  Map<String, String> dictionary = Dictionary().grade1;
+
   Map<String, IconData> cardIcons = {};
 
   void initializeIcons() {
@@ -36,11 +39,12 @@ class HomeState extends State<Home> {
   @override
   void initState() {
     super.initState();
+    initializeIcons();
     if (calledOnce) {
-      initializeIcons();
       getIconData();
+      getLibraryCards();
     } else {
-      initializeIcons();
+      getLibraryCards();
       getIconData();
       calledOnce = true;
     }
@@ -76,43 +80,73 @@ class HomeState extends State<Home> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               ListTile(
+                onTap: () async {
+                  if (cardIcons[titletext] == Icons.bookmark_add_outlined) {
+                    setState(() {
+                      savedEntries[titletext] = subtitletext;
+                      debugPrint('Saved Entries: $savedEntries');
+                      SharedPreferencesHelper.saveMap(
+                          savedEntries, savedEntriesKey);
+                      cardIcons[titletext] = Icons.bookmark_outlined;
+                      SharedPreferencesHelperIcons.saveMap(
+                          cardIcons, cardIconsKey);
+                    });
+                  } else if (cardIcons[titletext] == Icons.bookmark_outlined) {
+                    setState(
+                      () {
+                        savedEntries.remove(titletext);
+                        SharedPreferencesHelper.saveMap(
+                            savedEntries, savedEntriesKey);
+                        debugPrint('Saved Entries: $savedEntries');
+                        cardIcons[titletext] = Icons.bookmark_add_outlined;
+                        SharedPreferencesHelperIcons.saveMap(
+                            cardIcons, cardIconsKey);
+                      },
+                    );
+                  }
+                },
                 title: Text(titletext),
                 subtitle: Text(subtitletext),
                 textColor: Colors.white,
                 subtitleTextStyle: const TextStyle(
                     fontStyle: FontStyle.italic, color: Colors.blue),
-                trailing: ElevatedButton(
-                    onPressed: () async {
-                      if (cardIcons[titletext] == Icons.bookmark_add_outlined) {
-                        setState(() {
-                          savedEntries[titletext] = subtitletext;
-                          debugPrint('Saved Entries: $savedEntries');
-                          SharedPreferencesHelper.saveMap(
-                              savedEntries, savedEntriesKey);
-                          cardIcons[titletext] = Icons.bookmark_outlined;
-                          SharedPreferencesHelperIcons.saveMap(
-                              cardIcons, cardIconsKey);
-                        });
-                      } else if (cardIcons[titletext] ==
-                          Icons.bookmark_outlined) {
-                        setState(() {
-                          savedEntries.remove(titletext);
-                          SharedPreferencesHelper.saveMap(
-                              savedEntries, savedEntriesKey);
-                          debugPrint('Saved Entries: $savedEntries');
-                          cardIcons[titletext] = Icons.bookmark_add_outlined;
-                          SharedPreferencesHelperIcons.saveMap(
-                              cardIcons, cardIconsKey);
-                        });
-                      }
-                    },
-                    style: ButtonStyle(
-                      shape: MaterialStatePropertyAll(RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20))),
-                      // backgroundColor:
-                      //     MaterialStatePropertyAll(Colors.amber.withAlpha(100)),
-                    ),
-                    child: Icon(cardIcons[titletext])),
+                trailing: Icon(
+                  cardIcons[titletext],
+                  color: Colors.white,
+                ),
+              ),
+            ],
+          )),
+      const SizedBox(height: 2),
+    ]);
+  }
+
+  Widget featuredCard(int dictionaryEntry) {
+    var titletext = dictionary.keys.elementAt(dictionaryEntry);
+    var subtitletext = dictionary.values.elementAt(dictionaryEntry);
+
+    return Column(children: [
+      const SizedBox(height: 2),
+      Card(
+          color: Colors.amber,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+          elevation: 2,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              ListTile(
+                title: Text(titletext),
+                subtitle: Text(subtitletext),
+                textColor: Colors.black87,
+                titleTextStyle: const TextStyle(
+                    fontWeight: FontWeight.w600,
+                    fontSize: 16,
+                    fontFamily: 'Segoe'),
+                subtitleTextStyle: const TextStyle(
+                    fontStyle: FontStyle.italic, color: Colors.blue),
               ),
             ],
           )),
@@ -123,27 +157,23 @@ class HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        // floatingActionButton: FloatingActionButton(
-        //   onPressed: () {
-        //     Navigator.of(context).pushReplacementNamed("Search");
-        //   },
-        //   backgroundColor: Colors.amber,
-        //   child: const Icon(
-        //     Icons.search,
-        //     color: Colors.black87,
-        //   ),
-        // ),
-        // floatingActionButtonLocation: FloatingActionButtonLocation
-        //     .endFloat, floating button location is above the navigation bar
-
         body: Padding(
       padding: const EdgeInsets.all(10),
       child: ListView(
         children: <Widget>[
+          Row(children: [
+            const SizedBox(width: 10),
+            //Random().nextInt(dictionary.length - 1)
+            Text('Featured Word: ',
+                style: TextStyle(color: Colors.amber.shade100)),
+          ]),
+          const SizedBox(height: 10),
+          featuredCard(Random().nextInt(dictionary.length - 1)),
           const SizedBox(height: 10),
           Row(children: [
             const SizedBox(width: 10),
-            Text('Grade 1 - 8 : ',
+            //Random().nextInt(dictionary.length - 1)
+            Text('Grade 1 Vocabulary: ',
                 style: TextStyle(color: Colors.amber.shade100)),
           ]),
           const SizedBox(height: 10),

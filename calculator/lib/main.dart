@@ -36,6 +36,7 @@ class CalculatorScreenState extends State<CalculatorScreen> {
   void _buttonPressed(String buttonText) {
     setState(() {
       if (buttonText == 'C') {
+        //Clear Screen Logic
         _output = '0';
         _num1 = 0.0;
         _num2 = 0.0;
@@ -47,12 +48,15 @@ class CalculatorScreenState extends State<CalculatorScreen> {
           buttonText == '/' ||
           buttonText == 'M' ||
           buttonText == '^') {
+        //operations parse
         _num1 = double.parse(_output);
         _operator = buttonText;
         _output = '0';
       } else if (buttonText == '.') {
+        //decimal point logic
         _output += buttonText;
       } else if (buttonText == '=') {
+        //output operations logic
         _num2 = double.parse(_output);
         switch (_operator) {
           case '+':
@@ -87,7 +91,8 @@ class CalculatorScreenState extends State<CalculatorScreen> {
         if (_output == '0') {
           _output = buttonText;
         } else {
-          _output += buttonText;
+          //numbers entering logic
+          if (!(_output.length > 13)) _output += buttonText;
         }
       }
     });
@@ -169,7 +174,10 @@ class CalculatorScreenState extends State<CalculatorScreen> {
             ),
           ),
           const Expanded(
-            child: Divider(), //Expands the divider when numbers are big
+            child: Padding(
+              padding: EdgeInsets.all(20),
+              child: Divider(color: Colors.blueAccent),
+            ), //Expands the divider when numbers are big
           ),
           Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -270,6 +278,7 @@ class CalculatorScreenState extends State<CalculatorScreen> {
             ],
           ),
           const Padding(padding: EdgeInsets.all(6)),
+          const SizedBox(height: 10)
         ],
       ),
     );

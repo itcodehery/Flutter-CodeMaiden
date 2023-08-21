@@ -15,12 +15,12 @@ class FiveColors extends StatefulWidget {
 
 class FiveColorsState extends State<FiveColors> {
   final Map<String, Color> colors = {
-    'purple': Colors.purple,
-    'blue': Colors.blue,
-    'yellow': Colors.yellow,
-    'pink': Colors.pink,
-    'teal': Colors.teal,
-    'orange': Colors.orange,
+    'Purple': Colors.purple,
+    'Blue': Colors.blue,
+    'Yellow': Colors.yellow,
+    'Pink': Colors.pink,
+    'Teal': Colors.teal,
+    'Orange': Colors.orange,
   };
 
   Color? selectedColor;
@@ -49,30 +49,35 @@ class FiveColorsState extends State<FiveColors> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Color Picker'),
-      ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text('You are currently on ${Platform.operatingSystem}'),
-          const SizedBox(
-            height: 10,
-          ),
-          for (var entry in colors.entries)
-            Container(
-                margin: const EdgeInsets.all(10),
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: entry.value,
-                    minimumSize: const Size(300, 60),
-                  ),
-                  onPressed: () => _setColor(entry.key, entry.value),
-                  child: Text(entry.key),
-                )),
-        ],
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(
+          title: const Text('Color Picker'),
+          backgroundColor: selectedColor,
+        ),
+        body: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Center(
+              child: Text('You are currently on ${Platform.operatingSystem}'),
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            for (var entry in colors.entries)
+              Container(
+                  margin: const EdgeInsets.all(10),
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: entry.value,
+                      minimumSize: const Size(300, 60),
+                    ),
+                    onPressed: () => _setColor(entry.key, entry.value),
+                    child: Text(entry.key),
+                  )),
+          ],
+        ),
       ),
     );
   }
